@@ -47,7 +47,7 @@
 
       toRemove = null
 
-      const HandmaidsTale = new Book("Handmaid's Tale", "Margaret Atwood", "450", true)
+      const HandmaidsTale = new Book("The Handmaid's Tale", "Margaret Atwood", "450", true)
       myLibrary.push(HandmaidsTale);
 
       displayLibrary()
@@ -58,7 +58,7 @@
         this.title = title
         this.author = author
         this.pages = pages //fix to make interger (as string) only
-        this.read = read //fix to make binary
+        this.read = read
       }
 
       function displayLibrary() {
@@ -71,16 +71,16 @@
           card.setAttribute('id', i);
           card.classList.add('card'); 
 
-            //add elements to card, change to loop later
+            //add elements to card
             const cardTitle = document.createElement('div');
-              cardTitle.classList.add('card-element'); 
+              cardTitle.classList.add('card-element-title'); 
               var newContent = document.createTextNode(myLibrary[i].title);
               cardTitle.appendChild(newContent);
             card.appendChild(cardTitle)
 
             const cardAuthor = document.createElement('div');
               cardAuthor.classList.add('card-element'); 
-              var newContent = document.createTextNode(myLibrary[i].author);
+              var newContent = document.createTextNode('By ' + myLibrary[i].author);
               cardAuthor.appendChild(newContent);
             card.appendChild(cardAuthor)
 
@@ -90,27 +90,48 @@
               cardPages.appendChild(newContent);
             card.appendChild(cardPages)
 
+            //todo: add toggleale read button that change background colour
             const cardRead = document.createElement('div');
-              cardRead.classList.add('card-element'); 
-              var newContent = document.createTextNode(myLibrary[i].read ? "Read" : "Not read");
+              cardRead.classList.add('card-element-read');
+              var newContent = document.createTextNode((myLibrary[i].read) ? 'Read' : 'Unread');
               cardRead.appendChild(newContent);
+
+              const readButton = document.createElement('input');
+              readButton.setAttribute('type', 'checkbox');
+              readButton.setAttribute('id', card.id);
+              readButton.setAttribute('value', (myLibrary[i].read));
+              if (myLibrary[i].read == true)
+                {
+                readButton.setAttribute('checked', true)
+                card.classList.add('card-element-read-yes');
+                } else {
+                card.classList.add('card-element-read-no');
+                }
+              readButton.setAttribute('onclick', 'toggleRead(this.id)')
+              cardRead.appendChild(readButton)
+      
             card.appendChild(cardRead)
 
             const deleteButton = document.createElement('input');
             deleteButton.setAttribute('type', 'button');
+            deleteButton.setAttribute('id', card.id);
             deleteButton.setAttribute('value', 'Delete');
-            var toRemove = eval(i)
-            console.log('creation' + toRemove)
-            deleteButton.setAttribute('onclick', 'removeBookFromLibrary(toRemove)');
+            deleteButton.setAttribute('class', 'btn-delete');
+            deleteButton.setAttribute('onclick', 'removeBookFromLibrary(this.id)');
             card.appendChild(deleteButton)
 
           library.appendChild(card)
         }
       }
 
+      function toggleRead(book) {
+        myLibrary[book].read = myLibrary[book].read ? false : true
+        displayLibrary()
+      }
+
       function removeBookFromLibrary(book) {
-        console.log(myLibrary[book]);
-        delete myLibrary[book];
+        //maybe add are you sure?
+        myLibrary.splice(book, 1)
         displayLibrary()
       }
 
@@ -123,6 +144,11 @@
         let newBook = new Book(newTitle, newAuthor, newPages, newRead)
         myLibrary.push(newBook);
         displayLibrary()
+
+        document.getElementById('title').value = '';
+        document.getElementById('author').value = '';
+        document.getElementById('pages').value = '';
+        document.getElementById('read').checked = false;
       }
     
       
