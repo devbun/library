@@ -45,6 +45,8 @@
 
       let myLibrary = [];
 
+      toRemove = null
+
       const HandmaidsTale = new Book("Handmaid's Tale", "Margaret Atwood", "450", true)
       myLibrary.push(HandmaidsTale);
 
@@ -97,14 +99,20 @@
             const deleteButton = document.createElement('input');
             deleteButton.setAttribute('type', 'button');
             deleteButton.setAttribute('value', 'Delete');
-            deleteButton.setAttribute('onclick', '');
+            var toRemove = eval(i)
+            console.log('creation' + toRemove)
+            deleteButton.setAttribute('onclick', 'removeBookFromLibrary(toRemove)');
             card.appendChild(deleteButton)
 
           library.appendChild(card)
         }
       }
 
-      function removeBookFromLibrary(book)
+      function removeBookFromLibrary(book) {
+        console.log(myLibrary[book]);
+        delete myLibrary[book];
+        displayLibrary()
+      }
 
       function addBookToLibrary() {
         let newTitle = document.getElementById('title').value;
