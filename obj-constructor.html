@@ -1,0 +1,48 @@
+"><!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Javascript Test</title>
+  </head>
+  <body>
+    <h1>Javascript Test</h1>
+    <p>Test code here</p>
+
+    <input type="text" id="myText" value="Some text...">
+
+<p>Description here</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+    <script>
+
+      function myFunction() {
+        function bookConstructor(title, author, pages, read) {
+          this.title = title
+          this.author = author
+          this.pages = pages
+          this.read = read
+          this.info = function() {
+            let infoString = `${this.title} by ${this.author}, ${this.pages} pages, `
+            infoString += (read == true)? 'have read yet' : 'not read yet'
+            return infoString
+        }
+      }
+
+      const theHobbit = new bookConstructor('The Hobbit', 'J.R.R. Tolkien', 295, false)
+
+
+      
+      var output = theHobbit.info()
+  
+        //divider
+
+          document.getElementById("demo").innerHTML = output
+    
+      }
+    </script>
+
+  </body>
+</html>

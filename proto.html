@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Javascript Test</title>
+  </head>
+  <body>
+    <h1>Javascript Test</h1>
+    <p>Test code here</p>
+
+    <input type="text" id="myText" value="Some text...">
+
+<p>Description here</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+    <script>
+
+      function myFunction() {
+
+        class Dog {
+          constructor(name, breed, color) {
+            this.name = name
+            this.breed = breed
+            this.color = color
+          }
+
+          bark() {
+            return 'Woof!'
+          }
+        }
+
+        class Chihuahua extends Dog {
+          constructor(name) {
+            super(name)
+            this.breed = 'Chihuahua'
+          }
+
+          smallBark() {
+            return 'Small woof!'
+          }
+        }
+
+        const myPet = new Chihuahua("Max")
+      
+      var output = myPet.bark()
+  
+        //divider
+
+          document.getElementById("demo").innerHTML = output
+    
+      }
+    </script>
+
+  </body>
+</html>

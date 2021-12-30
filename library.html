@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel='stylesheet' href='library.css'/>
+    <meta charset="utf-8">
+    <title>My Library</title>
+  </head>
+
+  <body>
+    <h1>Javascript Library</h1>
+    <p>Add or remove books from your library.</p>
+
+    <div class='form-row'>
+      <label for='title'>Title</label>
+      <input id='title' name='title' type='text' value="Slaughterhouse-Five"/>
+    </div>
+
+    <div class='form-row'>
+      <label for='author'>Author</label>
+      <input id='author' name='author' type='text' value="Kurt Vonnegut"/>
+    </div>
+
+    <div class='form-row'>
+      <label for='pages'>Pages</label>
+      <input id='pages' name='pages' type='text' value="275"/>
+    </div>
+
+
+    <div class='form-row'>
+      <label for='read'>Read</label>
+      <input type="checkbox" id="read" value="haveread">
+    </div>
+
+<p></p>
+
+<button onclick="addBookToLibrary()">Add</button>
+
+<h2>Library</h2>
+
+<p id="library" class="library"></p>
+
+    <script>
+
+      //startup
+
+      let myLibrary = [];
+
+      const HandmaidsTale = new Book("Handmaid's Tale", "Margaret Atwood", "450", true)
+      myLibrary.push(HandmaidsTale);
+
+      displayLibrary()
+
+      //functions
+
+      function Book(title, author, pages, read) {
+        this.title = title
+        this.author = author
+        this.pages = pages //fix to make interger (as string) only
+        this.read = read //fix to make binary
+      }
+
+      function displayLibrary() {
+        library = document.getElementById('library');
+
+        library.innerHTML = ''
+
+        for (let i = 0; i < myLibrary.length; i++) {
+          const card = document.createElement('div');
+          card.setAttribute('id', i);
+          card.classList.add('card'); 
+
+            //add elements to card, change to loop later
+            const cardTitle = document.createElement('div');
+              cardTitle.classList.add('card-element'); 
+              var newContent = document.createTextNode(myLibrary[i].title);
+              cardTitle.appendChild(newContent);
+            card.appendChild(cardTitle)
+
+            const cardAuthor = document.createElement('div');
+              cardAuthor.classList.add('card-element'); 
+              var newContent = document.createTextNode(myLibrary[i].author);
+              cardAuthor.appendChild(newContent);
+            card.appendChild(cardAuthor)
+
+            const cardPages = document.createElement('div');
+              cardPages.classList.add('card-element'); 
+              var newContent = document.createTextNode(myLibrary[i].pages + ' pages');
+              cardPages.appendChild(newContent);
+            card.appendChild(cardPages)
+
+            const cardRead = document.createElement('div');
+              cardRead.classList.add('card-element'); 
+              var newContent = document.createTextNode(myLibrary[i].read ? "Read" : "Not read");
+              cardRead.appendChild(newContent);
+            card.appendChild(cardRead)
+
+            const deleteButton = document.createElement('input');
+            deleteButton.setAttribute('type', 'button');
+            deleteButton.setAttribute('value', 'Delete');
+            deleteButton.setAttribute('onclick', '');
+            card.appendChild(deleteButton)
+
+          library.appendChild(card)
+        }
+      }
+
+      function removeBookFromLibrary(book)
+
+      function addBookToLibrary() {
+        let newTitle = document.getElementById('title').value;
+        let newAuthor = document.getElementById('author').value;
+        let newPages = document.getElementById('pages').value;
+        let newRead = document.getElementById('read').checked ? true : false;
+
+        let newBook = new Book(newTitle, newAuthor, newPages, newRead)
+        myLibrary.push(newBook);
+        displayLibrary()
+      }
+    
+      
+    </script>
+
+  </body>
+</html>
